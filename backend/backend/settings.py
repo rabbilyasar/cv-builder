@@ -25,7 +25,7 @@ SECRET_KEY = '$8&9&=yuz_k)ptb@0c(me%^8yk084$ci!1utr2*f(0w*&(7m!8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0']
+ALLOWED_HOSTS = ['0.0.0.0','localhost']
 
 
 # Application definition
