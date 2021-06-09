@@ -1,33 +1,40 @@
-version: '3'
-
+version: "3.2"
 services:
-  db:
-    image: postgres
-    ports:
-      - "5434:5432"
-    environment:
-        POSTGRES_DB: "db"
-        POSTGRES_HOST_AUTH_METHOD: "trust"
-
   backend:
     build: ./backend
-    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
     volumes:
-      - ./backend:/app/api
+      - ./backend:/app/backend
     ports:
       - "8000:8000"
+    stdin_open: true
+    tty: true
     depends_on:
       - db
-
+    environment:
+      - DJANGO_SETTINGS_MODULE=backend.settings.dev
   frontend:
     build: ./frontend
-    command: ["npm", "start"]
     volumes:
-      - ./frontend:/app/frontend
-      - node-modules:/app/frontend/node_modules
+      - ./frontend:/app
+      # One-way volume to use node_modules from inside image
+      - /app/node_modules
     ports:
       - "3000:3000"
-
-volumes:
-  node-modules:
-
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - backend
+    command: npm start
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: cvbuilder-pgadmin
+    depends_on:
+      - db
+    ports:
+      - "5051:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: root
+    restart: always
+  db:
+    image: postgres:11.1-alpine

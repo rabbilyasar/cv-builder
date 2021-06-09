@@ -1,20 +1,15 @@
-FROM node:12.2.0-alpine
+# Use an official node runtime as a parent image
+FROM node:12
 
-WORKDIR /app/frontend
+WORKDIR /app/
 
-ENV PATH /app/node_modules/.bin:$PATH
+# Install dependencies
+COPY package.json yarn.lock /app/
 
-COPY package.json .
+RUN npm install
 
-RUN npm install --silent
-
-COPY src src
-
-COPY public public
-
-COPY .env .env
-
-# RUN npm install react-scripts@3.0.1 -g --silent
+# Add rest of the client code
+COPY . /app/
 
 EXPOSE 3000
 
