@@ -1,6 +1,9 @@
 # cv-builder
 
 ## How to run
+- `git clone`
+- `docker-compose up`
+
 ### Server for Backend
 - `localhost:8000`
 ### Server for Frontend
