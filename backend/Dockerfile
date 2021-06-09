@@ -1,28 +1,29 @@
-FROM python:3.9.5-alpine
+# Use an official Python runtime as a parent image
+FROM python:3.7-alpine
 
-LABEL maintainer="rabbil"
+# Adding backend directory to make absolute filepaths consistent across services
+WORKDIR /app/backend
 
-ENV PYTHONBUFFERD 1
-ENV PYTHONDONTWRITEBYTECODE 1
+# Install Python dependencies
+COPY requirements.txt /app/backend
+RUN  \
+    apk update && \
+    apk upgrade && \
+    apk add bash && \
+    apk add --no-cache postgresql-libs && \
+    apk add --no-cache --virtual .build-deps gcc musl-dev postgresql-dev && \
+    pip3 install --upgrade pip -r requirements.txt && \
+    apk --purge del .build-deps
 
-WORKDIR /app/api
+# Add the rest of the code
+COPY . /app/backend
+COPY ./scripts/ /app/
 
-RUN apk add --no-cache \
-    ca-certificates gcc postgresql-dev linux-headers musl-dev \
-    libffi-dev jpeg-dev zlib-dev git
-# RUN apt-get update \
-#     && apt-get install -y --no-install-recommends \
-#         postgresql-client \
-#     && rm -rf /var/lib/apt/lists/*
-
-
-COPY requirements.txt /app/api
-RUN pip install -r requirements.txt
-
-COPY .env .env
-
-
-
-
+# Make port 8000 available for the app
+ENV PORT 8000
 EXPOSE 8000
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+
+# Be sure to use 0.0.0.0 for the host within the Docker container,
+# otherwise the browser won't be able to find it
+RUN ["chmod", "+x", "/app/entrypoint-dev.sh"]
+ENTRYPOINT [ "/app/entrypoint-dev.sh" ]
