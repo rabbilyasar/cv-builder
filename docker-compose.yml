@@ -1,38 +1,40 @@
-version: '2'
-
+version: "3.2"
 services:
-    nginx: 
-        restart: unless-stopped
-        build:
-            context: .
-            dockerfile: ./docker/nginx/Dockerfile
-        ports:
-            - 80:80
-            - 443:443
-        volumes:
-            - static_volume:/app/backend/server/django_static
-            - ./docker/nginx/production:/etc/nginx/conf.d
-            - ./docker/nginx/certbot/conf:/etc/letsencrypt
-            - ./docker/nginx/certbot/www:/var/www/certbot
-        depends_on: 
-            - backend
-    certbot:
-        image: certbot/certbot
-        restart: unless-stopped
-        volumes:
-            - ./docker/nginx/certbot/conf:/etc/letsencrypt
-            - ./docker/nginx/certbot/www:/var/www/certbot
-        entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"       
-    backend:
-        restart: unless-stopped
-        build:
-            context: .
-            dockerfile: ./docker/backend/Dockerfile
-        entrypoint: /app/docker/backend/wsgi-entrypoint.sh
-        volumes:
-            - static_volume:/app/backend/server/django_static
-        expose:
-            - 8000        
-
-volumes:
-    static_volume: {}
+  backend:
+    build: ./backend
+    volumes:
+      - ./backend:/app/backend
+    ports:
+      - "8000:8000"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - db
+    environment:
+      - DJANGO_SETTINGS_MODULE=backend.settings.dev
+  frontend:
+    build: ./frontend
+    volumes:
+      - ./frontend:/app
+      # One-way volume to use node_modules from inside image
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - backend
+    command: npm start
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: cvbuilder-pgadmin
+    depends_on:
+      - db
+    ports:
+      - "5051:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: root
+    # restart: always
+  db:
+    image: postgres:11.1-alpine
