@@ -9,7 +9,10 @@ COPY requirements.txt /app/backend
 RUN  \
     apk update && \
     apk upgrade && \
-    apk add bash && \
+    apk add --no-cache linux-headers bash gcc \
+    libjpeg-turbo-dev libpng libpq \
+    uwsgi uwsgi-python3 git \
+    zlib-dev libmagic && \
     apk add --no-cache postgresql-libs && \
     apk add --no-cache git && \
     apk add --no-cache --virtual .build-deps gcc musl-dev postgresql-dev && \
