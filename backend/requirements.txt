@@ -1,6 +1,15 @@
 asgiref==3.3.4
+autopep8==1.5.7
 Django==3.2.4
 djangorestframework==3.12.4
+flake8==3.9.2
+importlib-metadata==4.5.0
+mccabe==0.6.1
 psycopg2==2.8.6
+pycodestyle==2.7.0
+pyflakes==2.3.1
 pytz==2021.1
 sqlparse==0.4.1
+toml==0.10.2
+typing-extensions==3.10.0.0
+zipp==3.4.1
