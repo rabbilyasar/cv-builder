@@ -25,6 +25,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 'service.apps.ServiceConfig'
+
+    # created apps
+    'account',
 ]
 
 MIDDLEWARE = [
@@ -121,3 +124,6 @@ STATIC_URL = '/static/'
 APPEND_SLASH = True
 
 MIGRATION_MODULES = {'service': 'service.models.migrations'}
+
+
+AUTH_USER_MODEL = 'account.Account'
