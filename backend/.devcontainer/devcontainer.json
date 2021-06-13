@@ -1,9 +1,6 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
-<<<<<<< HEAD
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.183.0/containers/docker-existing-dockerfile
-=======
+
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.177.0/containers/docker-existing-dockerfile
->>>>>>> sprint1
 {
 	"name": "Existing Dockerfile",
 
@@ -14,15 +11,9 @@
 	"dockerFile": "../Dockerfile",
 
 	// Set *default* container specific settings.json values on container create.
-<<<<<<< HEAD
-	"settings": {},
-	
-=======
-	"settings": { 
+	"settings": {
 		"terminal.integrated.shell.linux": null
 	},
-
->>>>>>> sprint1
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": []
 
@@ -41,3 +32,4 @@
 	// Uncomment to connect as a non-root user if you've added one. See https://aka.ms/vscode-remote/containers/non-root.
 	// "remoteUser": "vscode"
 }
+
