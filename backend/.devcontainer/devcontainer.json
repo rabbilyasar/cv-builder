@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.177.0/containers/docker-existing-dockerfile
 {
-	"name": "Existing Dockerfile",
+	"name": "Backend",
 
 	// Sets the run context to one level up instead of the .devcontainer folder.
 	"context": "..",
@@ -10,12 +10,12 @@
 	"dockerFile": "../Dockerfile",
 
 	// Set *default* container specific settings.json values on container create.
-	"settings": { 
+	"settings": {
 		"terminal.integrated.shell.linux": null
 	},
 
 	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": []
+	"extensions": ["ms-python.python", "njpwerner.autodocstring", "hbenl.vscode-test-explorer", "shardulm94.trailing-spaces", "littlefoxteam.vscode-python-test-adapter"]
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
