@@ -5,4 +5,4 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    age = models.IntegerField(null=True,blank=True)
+    age = models.IntegerField(null=True, blank=True)
