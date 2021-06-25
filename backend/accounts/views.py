@@ -1,7 +1,7 @@
 # from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 
-from rest_framework.generics import CreateAPIView, RetrieveAPIView
+from rest_framework.generics import CreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 # from rest_framework.views import APIView
@@ -13,6 +13,7 @@ User = get_user_model()
 
 # Create your views here.
 class CreateAPIUser(CreateAPIView):
+
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (AllowAny, )
@@ -47,7 +48,8 @@ class LogoutAPIUser(APIView):
         return Response({"message": "Logged out Correctly"})
 
 
-class UserDetailAPIView(RetrieveAPIView):
+class UserDetailAPIView(RetrieveUpdateDestroyAPIView):
 
+    # Pending on handling permissions
     serializer_class = UserSerializer
     queryset = User.objects.all()
