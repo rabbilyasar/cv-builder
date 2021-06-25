@@ -5,7 +5,7 @@ from rest_framework.generics import CreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 # from rest_framework.views import APIView
-from .serializers import UserSerializer, UserLoginSerializer
+from .serializers import UserSerializer, UserLoginSerializer, ProfileUserSerializer
 from rest_framework.permissions import AllowAny
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -51,5 +51,5 @@ class LogoutAPIUser(APIView):
 class UserDetailAPIView(RetrieveUpdateDestroyAPIView):
 
     # Pending on handling permissions
-    serializer_class = UserSerializer
+    serializer_class = ProfileUserSerializer
     queryset = User.objects.all()

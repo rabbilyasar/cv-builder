@@ -25,6 +25,32 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 
+class ProfileUserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('email',
+                  'username',
+                  'first_name',
+                  'middle_name',
+                  'last_name',
+                  'phone',
+                  'address',
+                  'postcode',
+                  'city',
+                  'country',
+                  'country_code',
+                  'website',
+                  'marital_status',
+                  'date_of_birth',
+                  'nacionality',
+                  'military_service',
+                  'driving_license',
+                  'job_title',
+                  'created_at',
+                  'updated_at')
+
+
 class UserLoginSerializer(serializers.Serializer):
 
     username = serializers.CharField()
