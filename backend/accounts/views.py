@@ -1,7 +1,7 @@
 # from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 
-from rest_framework.generics import CreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 # from rest_framework.views import APIView
@@ -12,7 +12,7 @@ User = get_user_model()
 
 
 # Create your views here.
-class CreateAPIUser(CreateAPIView):
+class CreateAPIUser(ListCreateAPIView):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
